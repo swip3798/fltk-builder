@@ -1,17 +1,24 @@
 use fltk::{prelude::*, app::App};
+#[macro_use]
+extern crate lazy_static;
+
+mod extensions;
+mod label_map;
+
+pub use label_map::{get_widget_by_id, IdMapError};
 
 
 #[derive(Debug)]
 pub struct FltkBuilder<W> 
 where W: WindowExt {
     app: App,
-    window: W
+    window: Option<W>
 }
 
 impl<W> FltkBuilder<W>
 where W: WindowExt
 {
-    pub fn new(app: App, window: W) -> Self { Self { app, window } }
+    pub fn new(app: App) -> Self { Self { app, window: None } }
 
     /// Get the fltk builder's app.
     #[must_use]
@@ -19,19 +26,18 @@ where W: WindowExt
         self.app
     }
 
-    /// Get a reference to the fltk builder's window.
-    #[must_use]
-    pub fn window(&self) -> &W {
-        &self.window
+    pub fn window(mut self, window: W) -> Self{
+        window.end();
+        self.window = Some(window);
+        self
     }
 
-    /// Get a mutable reference to the fltk builder's window.
-    #[must_use]
-    pub fn window_mut(&mut self) -> &mut W {
-        &mut self.window
-    }
-
-    pub fn widget(&self, widget: impl WidgetExt) {
-        
+    pub fn show(&mut self) {
+        if self.window.is_some() {
+            let win = self.window.as_mut().unwrap();
+            win.show();
+        }
     }
 }
+
+pub mod prelude;
