@@ -29,9 +29,6 @@ where
 {
     let id_map = ID_MAP.clone();
     let map = id_map.read()?;
-    for (k,v) in map.iter() {
-        println!("K: {}, vt: {:?}, b: {:?}", k, (&*v).type_id(), std::any::TypeId::of::<Box<dyn Any>>());
-    }
     let cast = map.get(id).as_ref().unwrap().downcast_ref::<F>().unwrap().clone();
     Ok(cast)
 }
@@ -42,7 +39,6 @@ where
 {
     let id_map = ID_MAP.clone();
     let mut map = id_map.write()?;
-    println!("{:?}", std::any::TypeId::of::<F>());
     map.insert(id, Box::new(value));
     Ok(())
 }

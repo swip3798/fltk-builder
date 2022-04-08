@@ -17,8 +17,8 @@ fn main() {
                     300 - 40 - PADDING * 3,
                     "",
                 )
-                    .with_anchor(Anchor::Left | Anchor::Right | Anchor::Top | Anchor::Bottom))
-                    .with_id("inp1"));
+                    .with_anchor(Anchor::Left | Anchor::Right | Anchor::Top | Anchor::Bottom)
+                    .with_id("inp1")));
     let win = app.get_window_mut().as_mut().unwrap();
     win.make_resizable(true);
     app.show();
