@@ -11,3 +11,4 @@ lazy_static = "1"
 
 [dev-dependencies]
 fltk-anchor = "0.1"
+fltk-theme = "0.4"
