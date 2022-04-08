@@ -32,11 +32,7 @@ where
     for (k,v) in map.iter() {
         println!("K: {}, vt: {:?}, b: {:?}", k, (&*v).type_id(), std::any::TypeId::of::<Box<dyn Any>>());
     }
-    let val = map.get(id).ok_or(IdMapError::IdNotFound)?;
-    let cast = val
-        .downcast_ref::<F>()
-        .ok_or(IdMapError::WrongType)?
-        .clone();
+    let cast = map.get(id).as_ref().unwrap().downcast_ref::<F>().unwrap().clone();
     Ok(cast)
 }
 
@@ -47,7 +43,6 @@ where
     let id_map = ID_MAP.clone();
     let mut map = id_map.write()?;
     println!("{:?}", std::any::TypeId::of::<F>());
-    let value: Box<dyn Any + Send + Sync> = Box::new(value);
-    map.insert(id, value);
+    map.insert(id, Box::new(value));
     Ok(())
 }
