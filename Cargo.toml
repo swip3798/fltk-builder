@@ -8,3 +8,7 @@ edition = "2021"
 [dependencies]
 fltk = "1"
 lazy_static = "1"
+static_type_map = "0.4"
+
+[dev-dependencies]
+fltk-anchor = "0.1"

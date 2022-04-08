@@ -4,3 +4,4 @@ mod builder;
 
 pub use callback::CallbackExt;
 pub use map::MapExt;
+pub use builder::{BuilderExt, FlexBuilderExt};

@@ -13,7 +13,7 @@ lazy_static! {
 #[derive(Debug)]
 pub enum IdMapError {
     PoisonErrorLock,
-    KeyNotFound,
+    IdNotFound,
     WrongType,
 }
 
@@ -23,13 +23,16 @@ impl<T> From<PoisonError<T>> for IdMapError {
     }
 }
 
-pub fn get_widget_by_id<F>(key: &str) -> Result<F, IdMapError>
+pub fn get_widget_by_id<F>(id: &str) -> Result<F, IdMapError>
 where
     F: Clone + Send + Sync + 'static,
 {
     let id_map = ID_MAP.clone();
     let map = id_map.read()?;
-    let val = map.get(key).ok_or(IdMapError::KeyNotFound)?;
+    for (k,v) in map.iter() {
+        println!("K: {}, vt: {:?}, b: {:?}", k, (&*v).type_id(), std::any::TypeId::of::<Box<dyn Any>>());
+    }
+    let val = map.get(id).ok_or(IdMapError::IdNotFound)?;
     let cast = val
         .downcast_ref::<F>()
         .ok_or(IdMapError::WrongType)?
@@ -37,13 +40,14 @@ where
     Ok(cast)
 }
 
-pub fn set_widget_to_id<F>(key: &'static str, value: F) -> Result<(), IdMapError>
+pub fn set_widget_to_id<F>(id: &'static str, value: F) -> Result<(), IdMapError>
 where
-    F: Clone + Send + Sync + 'static,
+    F: Any + Clone + Send + Sync + 'static,
 {
     let id_map = ID_MAP.clone();
     let mut map = id_map.write()?;
-    let value = Box::new(value);
-    map.insert(key, value);
+    println!("{:?}", std::any::TypeId::of::<F>());
+    let value: Box<dyn Any + Send + Sync> = Box::new(value);
+    map.insert(id, value);
     Ok(())
 }

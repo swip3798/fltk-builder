@@ -1,1 +1,1 @@
-pub use crate::extensions::{CallbackExt, MapExt};
+pub use crate::extensions::{BuilderExt, CallbackExt, FlexBuilderExt, MapExt};

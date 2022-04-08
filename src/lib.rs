@@ -3,9 +3,9 @@ use fltk::{prelude::*, app::App};
 extern crate lazy_static;
 
 mod extensions;
-mod label_map;
+mod id_map;
 
-pub use label_map::{get_widget_by_id, IdMapError};
+pub use id_map::{get_widget_by_id, IdMapError};
 
 
 #[derive(Debug)]
@@ -37,6 +37,12 @@ where W: WindowExt
             let win = self.window.as_mut().unwrap();
             win.show();
         }
+    }
+
+    /// Get a mutable reference to the fltk builder's window.
+    #[must_use]
+    pub fn get_window_mut(&mut self) -> &mut Option<W> {
+        &mut self.window
     }
 }
 
