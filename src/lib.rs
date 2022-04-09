@@ -19,20 +19,23 @@ where W: WindowExt {
 impl<W> FltkBuilder<W>
 where W: WindowExt
 {
+    /// Creates a new FltkBuilder struct
     pub fn new(app: App) -> Self { Self { app, window: None } }
 
-    /// Get the fltk builder's app.
+    /// Get the fltk builder's app
     #[must_use]
     pub fn app(&self) -> App {
         self.app
     }
 
+    /// Set the main window of the fltk app
     pub fn window(mut self, window: W) -> Self{
         window.end();
         self.window = Some(window);
         self
     }
 
+    /// Call show on the window if it's available
     pub fn show(&mut self) {
         if self.window.is_some() {
             let win = self.window.as_mut().unwrap();
