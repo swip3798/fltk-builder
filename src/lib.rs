@@ -2,12 +2,13 @@ use fltk::{prelude::*, app::App};
 #[macro_use]
 extern crate lazy_static;
 
-mod extensions;
+/// Holds several extension traits to enable a builder pattern
+pub mod extensions;
 mod id_map;
 
 pub use id_map::{get_widget_by_id, IdMapError};
 
-
+/// Starting point for the UI
 #[derive(Debug)]
 pub struct FltkBuilder<W> 
 where W: WindowExt {
@@ -46,4 +47,5 @@ where W: WindowExt
     }
 }
 
+/// Reexports of all fltk_builder traits 
 pub mod prelude;
