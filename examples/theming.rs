@@ -1,17 +1,23 @@
-use fltk::{prelude::*, *, group::Flex, button::Button};
+use fltk::{button::Button, group::Flex, prelude::*, *};
 use fltk_builder::{prelude::*, FltkBuilder};
-use fltk_theme::{ColorTheme, color_themes};
+use fltk_theme::{color_themes, ColorTheme};
 
 fn main() {
-    let mut app =
-        FltkBuilder::new(app::App::default())
-            .window(window::Window::default()
-                .with_size(400, 300)
-                .group(Flex::default_fill().column()
-                    .widget_with_size(30, Button::default()
-                        .with_label("Test Button")
-                        .with_id("btn1")
-                        .with_color(enums::Color::Red))));
+    let mut app = FltkBuilder::new(app::App::default()).window(
+        window::Window::default()
+            .with_size(400, 300)
+            .group(
+                Flex::default_fill()
+                    .column()
+                    .widget_with_size(
+                        30,
+                        Button::default()
+                            .with_label("Test Button")
+                            .with_id("btn1")
+                            .with_color(enums::Color::Red),
+                    ),
+            ),
+    );
     let theme = ColorTheme::new(color_themes::BLACK_THEME);
     theme.apply();
     app.show();
@@ -19,5 +25,7 @@ fn main() {
     btn1.set_callback(|_| {
         println!("Btn1 was clicked");
     });
-    app.app().run().unwrap();
+    app.app()
+        .run()
+        .unwrap();
 }
