@@ -29,7 +29,13 @@ where
 {
     let id_map = ID_MAP.clone();
     let map = id_map.read()?;
-    let cast = map.get(id).as_ref().unwrap().downcast_ref::<F>().unwrap().clone();
+    let cast = map
+        .get(id)
+        .as_ref()
+        .unwrap()
+        .downcast_ref::<F>()
+        .unwrap()
+        .clone();
     Ok(cast)
 }
 
