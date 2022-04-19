@@ -1,41 +1,4 @@
-use fltk::{prelude::{GroupExt, WidgetExt, ImageExt, ButtonExt}, group::Flex, enums::{LabelType, Shortcut}};
-use fltk::{enums::{Color, FrameType, Font, CallbackTrigger}};
-
-/// Defines all necessary functions for group widgets to add widgets and other groups as children, as well as builder friendly versions of several setter functions
-pub trait GroupBuilderExt {
-    // Functions for adding groups and widgets
-    /// Adds a group widget as a child
-    fn group(self, group: impl GroupExt) -> Self;
-    /// Adds a widget as a child
-    fn widget(self, widget: impl WidgetExt) -> Self;
-
-    // Builder Pattern friendly functions
-    /// Make the group itself resizable
-    fn as_resizeable(self, val: bool) -> Self;
-    /// Clips children outside the group boundaries
-    fn with_clip_children(self, flag: bool) -> Self;
-}
-
-impl<G> GroupBuilderExt for G where G: GroupExt {
-    fn group(self, group: impl GroupExt) -> Self {
-        group.end();
-        self
-    }
-
-    fn widget(self, _widget: impl WidgetExt) -> Self {
-        self
-    }
-
-    fn as_resizeable(mut self, val: bool) -> Self {
-        self.make_resizable(val);
-        self
-    }
-
-    fn with_clip_children(mut self, flag: bool) -> Self {
-        self.set_clip_children(flag);
-        self
-    }
-}
+use fltk::{enums::{Color, FrameType, LabelType, CallbackTrigger, Font}, prelude::{ImageExt, WidgetExt}};
 
 /// Adds builder pattern friendly versions of several setter functions
 pub trait WidgetBuilderExt {
@@ -166,38 +129,3 @@ where W: WidgetExt{
         self
     }
 }
-
-/// Adds helper function to add a widget to a flex with an already set size
-pub trait FlexBuilderExt {
-    /// Adds a widget and sets its size within the flex layout
-    fn widget_with_size(self, size: i32, widget: impl WidgetExt) -> Self;
-}
-
-impl FlexBuilderExt for Flex {
-    fn widget_with_size(mut self, size: i32, widget: impl WidgetExt) -> Self {
-        self.set_size(&widget, size);
-        self.widget(widget)
-    }
-}
-
-/// Adds builder pattern friendly versions of several setter functions 
-pub trait ButtonBuilderExt {
-    /// Sets the shortcut associated with a button
-    fn with_shortcut(self, shortcut: Shortcut) -> Self;
-    /// Set the `down_box` of the widget
-    fn with_down_frame(self, f: FrameType) -> Self;
-}
-
-impl<B> ButtonBuilderExt for B 
-where B: ButtonExt {
-    fn with_shortcut(mut self, shortcut: Shortcut) -> Self {
-        self.set_shortcut(shortcut);
-        self
-    }
-
-    fn with_down_frame(mut self, f: FrameType) -> Self {
-        self.set_down_frame(f);
-        self
-    }
-}
-
