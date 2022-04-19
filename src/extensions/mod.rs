@@ -4,4 +4,4 @@ mod map;
 pub use map::MapExt;
 
 mod builder;
-pub use builder::{BuilderExt, FlexBuilderExt, WidgetBuilderExt};
+pub use builder::{GroupBuilderExt, FlexBuilderExt, WidgetBuilderExt};
