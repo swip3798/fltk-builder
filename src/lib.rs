@@ -1,11 +1,18 @@
+#![doc = include_str!("../README.md")]
+
 use fltk::{prelude::*, app::App};
+
+
+#[cfg(feature = "id_map")]
 #[macro_use]
 extern crate lazy_static;
 
 /// Holds several extension traits to enable a builder pattern
 pub mod extensions;
-mod id_map;
 
+#[cfg(feature = "id_map")]
+mod id_map;
+#[cfg(feature = "id_map")]
 pub use id_map::{get_widget_by_id, IdMapError};
 
 /// Starting point for the UI

@@ -1,4 +1,4 @@
-use fltk::{prelude::{GroupExt, WidgetExt}, group::Flex};
+use fltk::{prelude::{GroupExt, WidgetExt, ImageExt}, group::Flex, enums::LabelType};
 use fltk::{enums::{Color, FrameType, Font, CallbackTrigger}};
 
 /// Defines all necessary functions for group widgets to add widgets and other groups as children
@@ -20,19 +20,47 @@ impl<G> BuilderExt for G where G: GroupExt {
     }
 }
 
-/// Adds builder pattern friendly versions of several functions
-/// TODO: Add documentation from the original setter functions
+/// Adds builder pattern friendly versions of several setter functions
 pub trait WidgetBuilderExt {
+    /// Sets the widget's color
     fn with_color(self, color: Color) -> Self;
+    /// Sets the widget's frame type
     fn with_frame(self, frame: FrameType) -> Self;
+    /// Sets the widget label's size
     fn with_label_size(self, size: i32) -> Self;
+    /// Sets the widget label's color
     fn with_label_color(self, color: Color) -> Self;
+    /// Sets the widget label's type
+    fn with_label_type(self, typ: LabelType) -> Self;
+    /// Sets the selection color of the widget
     fn with_selection_color(self, color: Color) -> Self;
+    /// Sets the widget label's font
     fn with_label_font(self, font: Font) -> Self;
+    /// Sets the callback when the widget is triggered (clicks for example)
+    /// takes the widget as a closure argument
     fn with_callback<F>(self, cb: F) -> Self
     where
         F: FnMut(&mut Self) + 'static;
+    /// Sets the default callback trigger for a widget, equivalent to `when()`
     fn with_trigger(self, trigger: CallbackTrigger) -> Self;
+    /// Emits a message on callback using a sender
+    fn with_emit<T: 'static + Clone + Send + Sync>(self, sender: fltk::app::Sender<T>, msg: T) -> Self;
+    /// Sets the image of the widget
+    fn with_image<I: ImageExt>(self, image: Option<I>) -> Self;
+    /// Sets the image of the widget scaled to the widget's size
+    fn with_image_scaled<I: ImageExt>(self, image: Option<I>) -> Self
+    where
+        Self: Sized;
+    /// Sets the deactivated image of the widget
+    fn with_deimage<I: ImageExt>(self, image: Option<I>) -> Self
+    where
+        Self: Sized;
+    /// Sets the deactivated image of the widget scaled to the widget's size
+    fn with_deimage_scaled<I: ImageExt>(self, image: Option<I>) -> Self
+    where
+        Self: Sized;
+    /// Sets the tooltip text
+    fn with_tooltip(self, txt: &str) -> Self;
 }
 
 impl<W> WidgetBuilderExt for W 
@@ -54,6 +82,11 @@ where W: WidgetExt{
 
     fn with_label_color(mut self, color: Color) -> Self {
         self.set_label_color(color);
+        self
+    }
+
+    fn with_label_type(mut self, typ: LabelType) -> Self {
+        self.set_label_type(typ);
         self
     }
 
@@ -79,10 +112,47 @@ where W: WidgetExt{
         self.set_trigger(trigger);
         self
     }
+
+    fn with_emit<T: 'static + Clone + Send + Sync>(mut self, sender: fltk::app::Sender<T>, msg: T) -> Self {
+        self.emit(sender, msg);
+        self
+    }
+
+    fn with_image<I: ImageExt>(mut self, image: Option<I>) -> Self {
+        self.set_image(image);
+        self
+    }
+
+    fn with_image_scaled<I: ImageExt>(mut self, image: Option<I>) -> Self
+    where
+        Self: Sized {
+        self.set_image_scaled(image);
+        self
+    }
+
+    fn with_deimage<I: ImageExt>(mut self, image: Option<I>) -> Self
+    where
+        Self: Sized {
+        self.set_deimage(image);
+        self
+    }
+
+    fn with_deimage_scaled<I: ImageExt>(mut self, image: Option<I>) -> Self
+    where
+        Self: Sized {
+        self.set_deimage_scaled(image);
+        self
+    }
+
+    fn with_tooltip(mut self, txt: &str) -> Self {
+        self.set_tooltip(txt);
+        self
+    }
 }
 
 /// Defines helper function to add a widget to a flex with an already set size
 pub trait FlexBuilderExt {
+    /// Adds a widget and sets its size within the flex layout
     fn widget_with_size(self, size: i32, widget: impl WidgetExt) -> Self;
 }
 
