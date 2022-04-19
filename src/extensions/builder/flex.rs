@@ -1,4 +1,4 @@
-use fltk::{prelude::WidgetExt, group::Flex};
+use fltk::{group::Flex, prelude::WidgetExt};
 
 use super::GroupBuilderExt;
 

@@ -15,7 +15,10 @@ pub trait GroupBuilderExt {
     fn with_clip_children(self, flag: bool) -> Self;
 }
 
-impl<G> GroupBuilderExt for G where G: GroupExt {
+impl<G> GroupBuilderExt for G
+where
+    G: GroupExt,
+{
     fn group(self, group: impl GroupExt) -> Self {
         group.end();
         self

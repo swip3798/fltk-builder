@@ -1,4 +1,7 @@
-use fltk::{enums::{Shortcut, FrameType}, prelude::ButtonExt};
+use fltk::{
+    enums::{FrameType, Shortcut},
+    prelude::ButtonExt,
+};
 
 /// Adds builder pattern friendly versions of several setter functions for Button widgets
 pub trait ButtonBuilderExt {
@@ -8,8 +11,10 @@ pub trait ButtonBuilderExt {
     fn with_down_frame(self, f: FrameType) -> Self;
 }
 
-impl<B> ButtonBuilderExt for B 
-where B: ButtonExt {
+impl<B> ButtonBuilderExt for B
+where
+    B: ButtonExt,
+{
     fn with_shortcut(mut self, shortcut: Shortcut) -> Self {
         self.set_shortcut(shortcut);
         self

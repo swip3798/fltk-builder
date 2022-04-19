@@ -1,4 +1,7 @@
-use fltk::{enums::{Font, Color}, prelude::InputExt};
+use fltk::{
+    enums::{Color, Font},
+    prelude::InputExt,
+};
 
 /// Adds builder pattern friendly versions of several setter functions for Input widgets
 pub trait InputBuilderExt {
@@ -18,8 +21,10 @@ pub trait InputBuilderExt {
     fn as_wrap(self, val: bool) -> Self;
 }
 
-impl<I> InputBuilderExt for I 
-where I: InputExt {
+impl<I> InputBuilderExt for I
+where
+    I: InputExt,
+{
     fn with_value(mut self, val: &str) -> Self {
         self.set_value(val);
         self

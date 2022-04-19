@@ -1,4 +1,7 @@
-use fltk::{enums::{Color, FrameType, LabelType, CallbackTrigger, Font}, prelude::{ImageExt, WidgetExt}};
+use fltk::{
+    enums::{CallbackTrigger, Color, Font, FrameType, LabelType},
+    prelude::{ImageExt, WidgetExt},
+};
 
 /// Adds builder pattern friendly versions of several setter functions
 pub trait WidgetBuilderExt {
@@ -24,7 +27,11 @@ pub trait WidgetBuilderExt {
     /// Sets the default callback trigger for a widget, equivalent to `when()`
     fn with_trigger(self, trigger: CallbackTrigger) -> Self;
     /// Emits a message on callback using a sender
-    fn with_emit<T: 'static + Clone + Send + Sync>(self, sender: fltk::app::Sender<T>, msg: T) -> Self;
+    fn with_emit<T: 'static + Clone + Send + Sync>(
+        self,
+        sender: fltk::app::Sender<T>,
+        msg: T,
+    ) -> Self;
     /// Sets the image of the widget
     fn with_image<I: ImageExt>(self, image: Option<I>) -> Self;
     /// Sets the image of the widget scaled to the widget's size
@@ -43,8 +50,10 @@ pub trait WidgetBuilderExt {
     fn with_tooltip(self, txt: &str) -> Self;
 }
 
-impl<W> WidgetBuilderExt for W 
-where W: WidgetExt{
+impl<W> WidgetBuilderExt for W
+where
+    W: WidgetExt,
+{
     fn with_color(mut self, color: Color) -> Self {
         self.set_color(color);
         self
@@ -93,7 +102,11 @@ where W: WidgetExt{
         self
     }
 
-    fn with_emit<T: 'static + Clone + Send + Sync>(mut self, sender: fltk::app::Sender<T>, msg: T) -> Self {
+    fn with_emit<T: 'static + Clone + Send + Sync>(
+        mut self,
+        sender: fltk::app::Sender<T>,
+        msg: T,
+    ) -> Self {
         self.emit(sender, msg);
         self
     }
@@ -105,21 +118,24 @@ where W: WidgetExt{
 
     fn with_image_scaled<I: ImageExt>(mut self, image: Option<I>) -> Self
     where
-        Self: Sized {
+        Self: Sized,
+    {
         self.set_image_scaled(image);
         self
     }
 
     fn with_deimage<I: ImageExt>(mut self, image: Option<I>) -> Self
     where
-        Self: Sized {
+        Self: Sized,
+    {
         self.set_deimage(image);
         self
     }
 
     fn with_deimage_scaled<I: ImageExt>(mut self, image: Option<I>) -> Self
     where
-        Self: Sized {
+        Self: Sized,
+    {
         self.set_deimage_scaled(image);
         self
     }
