@@ -4,4 +4,7 @@ mod map;
 pub use map::MapExt;
 
 mod builder;
-pub use builder::{GroupBuilderExt, FlexBuilderExt, WidgetBuilderExt, InputBuilderExt, ButtonBuilderExt, BrowserBuilderExt, MenuBuilderExt};
+pub use builder::{
+    BrowserBuilderExt, ButtonBuilderExt, FlexBuilderExt, GroupBuilderExt, InputBuilderExt,
+    MenuBuilderExt, ValuatorBuilderExt, WidgetBuilderExt,
+};
