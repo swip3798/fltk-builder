@@ -14,3 +14,20 @@ where W: WidgetExt + Clone + Send + Sync + 'static
         self
     }
 }
+
+#[cfg(test)]
+mod test {
+    use fltk::{frame::Frame, button::Button};
+    use crate::get_widget_by_id;
+    use super::*;
+
+    #[test]
+    fn test() {
+        Frame::default().with_label("TestFrame").with_id("frame");
+        Button::default().with_label("TestButton").with_id("button");
+        let re_frame: Frame = get_widget_by_id("frame").expect("Get should have worked");
+        let re_btn: Button = get_widget_by_id("button").expect("Get should have worked");
+        assert_eq!(re_frame.label(), "TestFrame");
+        assert_eq!(re_btn.label(), "TestButton");
+    }
+}

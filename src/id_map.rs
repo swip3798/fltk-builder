@@ -75,3 +75,22 @@ where
     map.insert(id, Box::new(value));
     Ok(())
 }
+
+
+#[cfg(test)]
+mod test {
+    use fltk::{frame::Frame, prelude::WidgetExt, button::Button};
+
+    use super::*;
+    #[test]
+    fn test() {
+        let frame = Frame::default().with_label("TestFrame");
+        set_widget_to_id("frame", frame).expect("Set should have worked");
+        let btn = Button::default().with_label("TestButton");
+        set_widget_to_id("button", btn).expect("Set should have worked");
+        let re_frame: Frame = get_widget_by_id("frame").expect("Get should have worked");
+        let re_btn: Button = get_widget_by_id("button").expect("Get should have worked");
+        assert_eq!(re_frame.label(), "TestFrame");
+        assert_eq!(re_btn.label(), "TestButton");
+    }
+}
