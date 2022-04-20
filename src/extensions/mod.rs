@@ -5,6 +5,7 @@ pub use map::MapExt;
 
 mod builder;
 pub use builder::{
-    BrowserBuilderExt, ButtonBuilderExt, FlexBuilderExt, GroupBuilderExt, InputBuilderExt,
-    MenuBuilderExt, ValuatorBuilderExt, WidgetBuilderExt,
+    BrowserBuilderExt, ButtonBuilderExt, DisplayBuilderExt, FlexBuilderExt, GroupBuilderExt,
+    ImageBuilderExt, InputBuilderExt, MenuBuilderExt, TableBuilderExt, ValuatorBuilderExt,
+    WidgetBuilderExt, WindowBuilderExt,
 };

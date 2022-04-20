@@ -1,5 +1,6 @@
 use fltk::prelude::ValuatorExt;
 
+/// Adds builder pattern friendly versions of several setter functions
 pub trait ValuatorBuilderExt {
     /// Set bounds of a valuator
     fn with_bounds(self, a: f64, b: f64) -> Self;

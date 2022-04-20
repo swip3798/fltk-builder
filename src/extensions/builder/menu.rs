@@ -2,7 +2,7 @@ use fltk::{
     enums::{Color, Font, FrameType},
     prelude::MenuExt,
 };
-
+/// Adds builder pattern friendly versions of several setter functions
 pub trait MenuBuilderExt {
     /// Sets the text font
     fn with_text_font(self, c: Font) -> Self;

@@ -1,5 +1,6 @@
 use fltk::{browser::BrowserScrollbar, prelude::BrowserExt};
 
+/// Adds builder pattern friendly versions of several setter functions
 pub trait BrowserBuilderExt {
     /// Sets the text size.
     /// Lines start at 1

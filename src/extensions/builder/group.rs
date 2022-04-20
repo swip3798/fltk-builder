@@ -24,7 +24,8 @@ where
         self
     }
 
-    fn widget(self, _widget: impl WidgetExt) -> Self {
+    fn widget(mut self, widget: impl WidgetExt) -> Self {
+        self.add(&widget);
         self
     }
 
