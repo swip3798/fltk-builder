@@ -9,7 +9,7 @@ keywords = ["gui", "ui", "widgets", "builder", "graphics"]
 categories = ["gui"]
 readme = "README.md"
 license = "MIT"
-exclude = ["./examples"]
+exclude = ["./examples", "./github"]
 
 [dependencies]
 fltk = {version = "1", default-features = false }

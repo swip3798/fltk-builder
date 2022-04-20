@@ -1,0 +1,18 @@
+name: Pullrequest-Workflow
+
+on:
+  pull_request:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build-pullrequest:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: cargo build --verbose
+    - name: Build release
+      run: cargo build --verbose --release
