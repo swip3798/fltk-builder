@@ -14,14 +14,20 @@ jobs:
         os: [windows-latest, macos-10.15, ubuntu-18.04, ubuntu-latest]
 
     steps:
+    - name: Download deps
+      run: |
+         if [ "$RUNNER_OS" == "Linux" ]; then
+          sudo apt-get update && sudo apt-get install -y libpango1.0-dev libx11-dev libxext-dev libxft-dev libxinerama-dev libxcursor-dev libxrender-dev libxfixes-dev libpng-dev libgl1-mesa-dev libglu1-mesa-dev
+         fi
     - uses: actions/checkout@v2
+    - uses: seanmiddleditch/gha-setup-ninja@master
     - name: Build
-      run: cargo build --verbose
+      run: cargo build --verbose --features=fltk/use-ninja
     - name: Build release
-      run: cargo build --verbose --release
+      run: cargo build --verbose --release --features=fltk/use-ninja
     - name: Build docs
       run: cargo doc --verbose
     - name: Build docs release
       run: cargo doc --verbose --release
     - name: Run tests
-      run: cargo test --verbose
+      run: cargo test --verbose --features=fltk/use-ninja
