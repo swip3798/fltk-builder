@@ -16,3 +16,7 @@ jobs:
       run: cargo build --verbose
     - name: Build release
       run: cargo build --verbose --release
+    - name: Build docs
+      run: cargo doc --verbose
+    - name: Build docs release
+      run: cargo doc --verbose --release
