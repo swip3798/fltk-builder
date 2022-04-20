@@ -1,9 +1,11 @@
-mod callback;
+#[cfg(feature = "id_map")]
 mod map;
-mod builder;
-mod styling;
-
-pub use callback::CallbackExt;
+#[cfg(feature = "id_map")]
 pub use map::MapExt;
-pub use builder::{BuilderExt, FlexBuilderExt};
-pub use styling::StylingExt;
+
+mod builder;
+pub use builder::{
+    BrowserBuilderExt, ButtonBuilderExt, DisplayBuilderExt, FlexBuilderExt, GroupBuilderExt,
+    ImageBuilderExt, InputBuilderExt, MenuBuilderExt, TableBuilderExt, ValuatorBuilderExt,
+    WidgetBuilderExt, WindowBuilderExt,
+};

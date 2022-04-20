@@ -1,13 +1,21 @@
+#![doc = include_str!("../README.md")]
+
 use fltk::{prelude::*, app::App};
+
+
+#[cfg(feature = "id_map")]
 #[macro_use]
 extern crate lazy_static;
 
-mod extensions;
-mod id_map;
+/// Holds several extension traits to enable a builder pattern
+pub mod extensions;
 
+#[cfg(feature = "id_map")]
+mod id_map;
+#[cfg(feature = "id_map")]
 pub use id_map::{get_widget_by_id, IdMapError};
 
-
+/// Starting point for the UI
 #[derive(Debug)]
 pub struct FltkBuilder<W> 
 where W: WindowExt {
@@ -18,20 +26,23 @@ where W: WindowExt {
 impl<W> FltkBuilder<W>
 where W: WindowExt
 {
+    /// Creates a new FltkBuilder struct
     pub fn new(app: App) -> Self { Self { app, window: None } }
 
-    /// Get the fltk builder's app.
+    /// Get the fltk builder's app
     #[must_use]
     pub fn app(&self) -> App {
         self.app
     }
 
+    /// Set the main window of the fltk app
     pub fn window(mut self, window: W) -> Self{
         window.end();
         self.window = Some(window);
         self
     }
 
+    /// Call show on the window if it's available
     pub fn show(&mut self) {
         if self.window.is_some() {
             let win = self.window.as_mut().unwrap();
@@ -46,4 +57,5 @@ where W: WindowExt
     }
 }
 
+/// Reexports of all fltk_builder traits 
 pub mod prelude;
