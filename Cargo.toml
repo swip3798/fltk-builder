@@ -2,6 +2,7 @@
 name = "fltk-builder"
 version = "0.1.0"
 edition = "2021"
+authors = ["Christian Schweigel"]
 description = "Extensions to enable a builder pattern approach when building FLTK UIs"
 repository = "https://github.com/swip3798/fltk-builder"
 keywords = ["gui", "ui", "widgets", "builder", "graphics"]
@@ -9,8 +10,6 @@ categories = ["gui"]
 readme = "README.md"
 license = "MIT"
 exclude = ["./examples"]
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 fltk = {version = "1", default-features = false }
