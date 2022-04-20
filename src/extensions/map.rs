@@ -3,6 +3,7 @@ use fltk::prelude::WidgetExt;
 /// Add the with_id function to assign an ID to the widget for later retrieval
 pub trait MapExt {
     /// Adds an ID to the widget. The widget can be at any point retrieved using its ID.
+    /// Panics if RWLock used internally is poisoned
     fn with_id(self, id: &'static str) -> Self;
 }
 
