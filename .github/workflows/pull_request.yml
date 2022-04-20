@@ -32,11 +32,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build
       run: cargo build --verbose
-    - name: Build release
-      run: cargo build --verbose --release
     - name: Build docs
       run: cargo doc --verbose
-    - name: Build docs release
-      run: cargo doc --verbose --release
     - name: Run tests
       run: cargo test --verbose
