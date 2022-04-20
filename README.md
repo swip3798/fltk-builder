@@ -20,7 +20,7 @@ fltk-builder = { version = "^0.1", default-features = false }
 ```
 
 An example application based on the `hello_button` example from fltk-rs:
-```rust
+```rust,no_run
 use fltk::{app, button::Button, frame::Frame, prelude::*, window::Window};
 use fltk_builder::prelude::*;
 
@@ -49,7 +49,10 @@ fn main() {
 
 You don't need to use the `FLTKBuilder` struct if you don't want to. You can still create the app and window normally and just use the builder pattern functions.
 
-```rust
+```rust,no_run
+use fltk::{app, button::Button, frame::Frame, prelude::*, window::Window};
+use fltk_builder::prelude::*;
+
 fn main() {
     let app = app::App::default();
     let mut wind = Window::default()
